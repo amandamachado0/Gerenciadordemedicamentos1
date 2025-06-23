@@ -29,6 +29,16 @@ def adicionar_medicamento():
 
     messagebox.showinfo("Sucesso", f"Medicamento '{nome}' cadastrado com sucesso!")
 
+def remover_medicamento():
+    nome = entrada_remover.get()
+    if nome in medicamentos:
+        del medicamentos[nome]
+        messagebox.showinfo("Removido", f"Medicamento '{nome}' removido com sucesso.")
+        entrada_remover.delete(0, tk.END)
+        mostrar_medicamentos()
+    else:
+        messagebox.showwarning("Não encontrado", f"Medicamento '{nome}' não encontrado.")
+
 
 def mostrar_medicamentos():
     texto_saida.delete(1.0, tk.END)
@@ -62,6 +72,11 @@ tk.Button(janela, text="Mostrar medicamentos cadastrados", command=mostrar_medic
 
 texto_saida = tk.Text(janela, height=15, width=60)
 texto_saida.pack(pady=10)
+
+tk.Label(janela, text="Nome do medicamento para remover:").pack()
+entrada_remover = tk.Entry(janela, width=40)
+entrada_remover.pack()
+tk.Button(janela, text="Remover medicamento", command=remover_medicamento).pack(pady=5)
 
 
 janela.mainloop()
